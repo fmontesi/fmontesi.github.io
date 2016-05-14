@@ -1,0 +1,13 @@
+---
+layout: post
+title: Plasma crashing upon login after updating the system clock
+date: '2010-11-02T09:52:00.001+01:00'
+author: Fabrizio Montesi
+tags:
+- kde
+modified_time: '2010-11-02T15:06:34.623+01:00'
+blogger_id: tag:blogger.com,1999:blog-3856624862131672592.post-2985419482774858279
+blogger_orig_url: http://fmontesi.blogspot.com/2010/11/plasma-crashing-upon-login-after.html
+---
+
+Many people have just recently switched from DST to standard time, putting their clocks an hour back. This can possibly cause a nasty behaviour in Plasma, due to a bug in KSharedDataCache: the application simply crashes just after logging in.<br />The bug has already been <a href="https://bugs.kde.org/show_bug.cgi?id=253795">reported</a> and corrected at the speed of light (kudos to Michael Pyne for the instantaneous reaction), so it will be fixed in KDE SC 4.5.3 and 4.6. If you are running KDE SC 4.5.2 and you do not want to apply the patch in the bug report, you can simply empty your user's cache directory.<br />Simply go in the directory pointed by cache-$HOSTNAME inside your user's kde configuration directory and remove every file that is located inside.<br />In openSUSE such directory is /var/tmp/kdecache-$USER, and your kde configuration directory is $HOME/.kde4.<br /><br />Happy Plasmaing! (or would that word be Plasming? ;-) )

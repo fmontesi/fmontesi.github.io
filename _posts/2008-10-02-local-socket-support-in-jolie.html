@@ -1,0 +1,13 @@
+---
+layout: post
+title: Local socket support in JOLIE
+date: '2008-10-02T15:12:00.006+02:00'
+author: Fabrizio Montesi
+tags:
+- jolie
+modified_time: '2008-10-02T15:16:55.404+02:00'
+blogger_id: tag:blogger.com,1999:blog-3856624862131672592.post-4188890937063185282
+blogger_orig_url: http://fmontesi.blogspot.com/2008/10/local-socket-support-in-jolie.html
+---
+
+<div xmlns='http://www.w3.org/1999/xhtml'>This fall looks good so far! A lot of JOLIE sub-projects are taking shape, and are going better than anticipated. But I'm blogging about something which has just landed on JOLIE's svn.<br/><br />JOLIE now supports local sockets (a.k.a. unix sockets). How to use them? Let's see it by comparison; a communication interface over tcp/ip sockets is exposed like the following:<br/><br /><code>inputPort MyInputPort {<br />Location: "socket://localhost:9000"<br />Protocol: soap<br />Interfaces: MyInterface<br />}</code><br/><br />Let's switch that to a local socket:<br/><br /><code>inputPort MyInputPort {<br />Location: "localsocket:/tmp/mylocalsocket"<br />Protocol: soap<br />Interfaces: MyInterface<br />}</code><br /><br />That's it! Use the localsocket scheme in the Location URI, and supply the right path to it.<br/><br /></div>

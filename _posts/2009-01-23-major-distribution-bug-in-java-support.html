@@ -1,0 +1,12 @@
+---
+layout: post
+title: Major distribution bug in Java support for unix sockets?
+date: '2009-01-23T11:28:00.006+01:00'
+author: Fabrizio Montesi
+tags: 
+modified_time: '2009-02-04T11:04:20.466+01:00'
+blogger_id: tag:blogger.com,1999:blog-3856624862131672592.post-5287570169105871917
+blogger_orig_url: http://fmontesi.blogspot.com/2009/01/major-distribution-bug-in-java-support.html
+---
+
+If you're trying to use local unix sockets using libmatthew with a Java program (as it's the case for JOLIE and thus MetaService), you might get a similar error:<br /><br />Exception in thread "main" java.lang.UnsatisfiedLinkError: /usr/lib/libunix-java.so: /usr/lib/libunix-java.so: undefined symbol: __stack_chk_fail_local<br /><br />I get it using the libmatthew-java package from openSUSE 11.1. It looks like <a href="https://bugs.launchpad.net/ubuntu/+source/dbus-java/+bug/218658">Ubuntu users are suffering of the same problem</a> (there causing a bug in dbus-java). If you read their bug thread, you'll find that they appoint the problem to a compilation flag. I've tried to simply download libmatthew sources from <a href="http://www.matthew.ath.cx/projects/java/libmatthew-java-0.7.1.tar.gz">here</a> and compiling them: they just work (except that you have to fix the Makefile by substituting the java compiler flag -source 5.0 with -source 1.5).<br /><br />This problem really looks worth going into some official update repository for each bugged distro. I have already filed a <a href="https://bugzilla.novell.com/show_bug.cgi?id=468886">bug for openSUSE</a>, but I cannot confirm it for other distros. Could *you* (dear reader) check for it and send an appropriate bug report? =)<br /><br /><strong>UPDATE:</strong> the bug has been fixed! Thanks to all the people involved! =) If you're using openSUSE 11.1, you can fetch a backport from the Java repository (http://download.opensuse.org/repositories/Java:/packages/openSUSE_11.1/).

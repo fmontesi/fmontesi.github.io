@@ -1,0 +1,14 @@
+---
+layout: post
+title: Faster websites with Jolie - HTTP Compression enabled by default
+date: '2015-01-26T16:18:00.003+01:00'
+author: Fabrizio Montesi
+tags:
+- microservices
+- jolie
+modified_time: '2015-01-26T16:24:17.211+01:00'
+blogger_id: tag:blogger.com,1999:blog-3856624862131672592.post-7959695506806075867
+blogger_orig_url: http://fmontesi.blogspot.com/2015/01/faster-websites-with-jolie-http.html
+---
+
+Thanks to Matthias Dieter Wallnöfer, Jolie now supports the negotiation of HTTP compression and this is activated by default. This means that all your Jolie-powered websites will benefit from this, along with your Jolie programs which access remote HTTP content.<br /><br /> We have just uploaded the patch to the web server on the Jolie website: <a href="http://www.jolie-lang.org/">http://www.jolie-lang.org</a><br /><br />We have also added caching, with the good old <a href="http://docs.jolie-lang.org/#!documentation/protocols/http.html">.cacheControl HTTP configuration parameter</a> that I introduced a while ago (<a href="http://arxiv.org/abs/1410.3712">http://arxiv.org/abs/1410.3712</a>).<br /><br />Two minutes later, the loading speed of the main webpage doubled. We went from ~140ms down to ~70ms ! You should feel the difference navigating from one page to the other (aside from those pages using slideshare plugins, which take time to load from slideshare.net).<br /><br />Enjoy a faster Jolie website and faster $all_your_Jolie_programs.<br /><br />PS: Yes, this will be released with Jolie 1.1.1

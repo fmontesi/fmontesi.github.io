@@ -1,0 +1,13 @@
+---
+layout: post
+title: 'Write once, validate anywhere: sharing Javascript code between clients and
+  services in Jolie'
+date: '2015-05-09T14:33:00.001+02:00'
+author: Fabrizio Montesi
+tags: 
+modified_time: '2015-05-09T14:33:46.937+02:00'
+blogger_id: tag:blogger.com,1999:blog-3856624862131672592.post-7370297510954493594
+blogger_orig_url: https://www.blogger.com/comment.g?blogID=3856624862131672592&postID=7370297510954493594
+---
+
+One of the most important aspects of mobile web applications is the validation of user input.  Javascript:  <pre><br />function f1() { ... }<br /></pre> <pre><br />interface JSIface {<br />RequestResponse: validateUser(<br />}<br /><br />interface JolieIface {<br />RequestResponse: validateUsername(string)(bool)<br />}<br /><br />outputPort JavaScript { ... }<br /><br />inputPort HttpInput {<br />Protocol: http<br />Aggregates: JavaScript<br />}<br /></pre>  #nodejs, #meteor, ...

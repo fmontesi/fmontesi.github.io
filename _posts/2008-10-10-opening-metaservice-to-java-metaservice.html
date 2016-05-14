@@ -1,0 +1,15 @@
+---
+layout: post
+title: 'Opening MetaService to Java: the MetaService-Java API layer.'
+date: '2008-10-10T12:57:00.013+02:00'
+author: Fabrizio Montesi
+tags:
+- italianaSoftware
+- jolie
+- kde
+modified_time: '2008-10-10T17:18:47.188+02:00'
+blogger_id: tag:blogger.com,1999:blog-3856624862131672592.post-9031623497654344222
+blogger_orig_url: http://fmontesi.blogspot.com/2008/10/opening-metaservice-to-java-metaservice.html
+---
+
+Today, MetaService-java hit Jolie's SVN. You can find it in /trunk/support/metaservice-java. Basically, MetaService-java is a Java API abstraction layer for interacting with MetaService, so that you can use it as if it were a Java object.<br /><br />This project was born for two reasons:<br />- it will be part of a solution for the integration of Java enterprise web applications with Service-Oriented Computing;<br />- it is a good example of how to implement an API abstraction layer to MetaService from an Object-oriented language, so its source code could be a useful reading for the Plasma::Service developers.<br /><br />I'll let the code (and its comments) and a simple example speak for themselves. They're in Java, but they should be pretty easy to understand even for people non-proficient with it. Example follows.<span style="font-weight: bold;"><br /><br /><br /><span style="font-family: courier new;"><span style="font-weight: bold;">MetaService metaService = new EmbeddedMetaService(); // Create a MetaService instance.<br /><br />// Set up access to a SOAP Web Service.<br />MetaServiceChannel myWebService = metaService.addRedirection(<br />    "MyWebService", // Resource name to assign<br />    "socket://www.mywebservice.com:80/", // Service location<br />    Value.create( "soap" ), // Protocol to use<br />    Value.create( "My metadata" ) // Descriptive metadata<br />);<br /><br />// Done! Let's communicate with it.<br />myWebService.send( "getNameById", Value.create( 4 ) );<br />Value response = myWebService.recv();<br />System.out.println( response.strValue() ); // Will print the name.<br /><br /><br /></span></span></span>The API is still to be refined, but pretty much usable already. =)

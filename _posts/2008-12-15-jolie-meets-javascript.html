@@ -1,0 +1,12 @@
+---
+layout: post
+title: Jolie meets JavaScript
+date: '2008-12-15T18:26:00.005+01:00'
+author: Fabrizio Montesi
+tags: 
+modified_time: '2008-12-15T18:48:53.308+01:00'
+blogger_id: tag:blogger.com,1999:blog-3856624862131672592.post-179819510329906729
+blogger_orig_url: http://fmontesi.blogspot.com/2008/12/jolie-meets-javascript.html
+---
+
+Starting today, JOLIE services can exploit the JavaScript language!<br />As usual we are <span style="font-weight: bold;">not</span> speaking of mixing JOLIE code with another language, which would result in incomprehensible JOLIE programs. We are instead speaking of the insertion of another language in JOLIE's service-oriented paradigm, by means of the embedding mechanism (which we are detailing in our new, shiny tutorials, to be published really soon).<br /><br />Embedding a JavaScript service goes like this:<br /><br /><pre>// main.ol<br /><br />include "console.iol"<br /><br />// Standard JOLIE service declaration<br />outputPort Math {<br />RequestResponse: sum<br />}<br /><br />embedded {<br />// We load our JavaScript file as the JS service<br />JavaScript:<br />    "mathservice.js" in </span><span style="font-family:courier new;">Math</span><br /><span style="font-family:courier new;">}<br /><br />main<br />{<br /> // Now we can call JS as every other service type supported by JOLIE<br />    with( request ) {<br />        .addend[0] = 2;<br />        .addend[1] = 4;<br />        .addend[2] = 1;<br />        .addend[3] = 3<br />    };<br />    sum@</span><span style="font-family:courier new;">Math</span><span style="font-family:courier new;">( request )( response );<br />    println@Console( response ) // Will print 10<br />}<br /></pre><br />The JavaScript API for accessing structured JOLIE data is the same as the one for Java. Let us see how the Math service is implemented:<br /><pre><br />// mathservice.js<br /><br />function sum( request )<br />{<br />    var addends = request.getChildren( "addend" );<br />    var total = 0;<br />    for( var i = 0; i < addends.size(); i++ ) {<br />        total += addends.get( i ).intValue();<br />    }<br />    return total;<br />}<br /></pre><br /><br /><br />Voilà! Simple, isn't it?<br />Support for other scripting programming languages will be introduced in the future, stay tuned! =)

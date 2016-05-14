@@ -1,0 +1,14 @@
+---
+layout: post
+title: MetaService enters the main source tree
+date: '2009-01-21T12:21:00.004+01:00'
+author: Fabrizio Montesi
+tags:
+- jolie
+- kde
+modified_time: '2009-01-21T12:46:54.994+01:00'
+blogger_id: tag:blogger.com,1999:blog-3856624862131672592.post-4210087066364566192
+blogger_orig_url: http://fmontesi.blogspot.com/2009/01/metaservice-enters-main-source-tree.html
+---
+
+Today I have moved MetaService from <a href="http://www.jolie-lang.org/">JOLIE</a>'s playground source tree to the main source tree, the one that gets installed when you type <i>ant install</i>.<br /><br />A short description for people that do not know what MetaService is: MetaService is a JOLIE service that allows you to dynamically bridge applications that speak different protocols (sodep, soap, http, etc.) or use different communication transports/mechanisms (sockets, local sockets, Java RMI, etc.). It has been developed as an answer to the <a href="http://plasma.kde.org/">Plasma project</a>'s needs to have a transparent means to introduce Plasma to the Service-oriented world. The project turned out to be so useful that I have built a Java library for interacting with and dynamically loading it (metaservice-java, to be found in trunk/support/metaservice-java) which we, as <a href="http://www.italianasoftware.com">italianaSoftware</a>, have already used in the scope of web application development (I can not say much more on this topic... yet ;).<br /><br />As a bonus, *nix users get a launcher script for MetaService when installing JOLIE with <i>ant install</i>. Just type <i>metaservice -h</i> and a help screen will welcome you.<br /><br />The script supports passing MetaService's input port location and protocol as parameters. This means that for KDE launching MetaService just became a matter of executing something like:<br /><br /><i>metaservice localsocket:/tmp/ksocket-$USER/metaservice</i><br /><br />Hooray for simplicity!

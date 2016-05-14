@@ -1,0 +1,16 @@
+---
+layout: post
+title: Running Jolie inside of Java
+date: '2015-01-30T13:25:00.000+01:00'
+author: Fabrizio Montesi
+tags:
+- tutorials
+- microservices
+- jolie
+- java
+modified_time: '2015-10-02T09:32:10.954+02:00'
+blogger_id: tag:blogger.com,1999:blog-3856624862131672592.post-2615806380910080763
+blogger_orig_url: http://fmontesi.blogspot.com/2015/01/running-jolie-inside-of-java.html
+---
+
+Lately I have been asked a lot how to run a Jolie program from inside of a Java program.<br />The opposite, running Java from Jolie, is <a href="http://docs.jolie-lang.org/#!documentation/architectural_composition/embedding_java.html" target="_blank">well documented</a> in our documentation site.<br /><br />Running Java code from inside a Jolie program is also a very simple process.<br />First, you need to add to your classpath (import in your project, if you are using an IDE) the jolie.jar and libjolie.jar libraries that you can find in your Jolie installation directory (JOLIE_HOME).<br />Now, from Java, you can create an Interpreter object. Interpreter is the class that implements the Jolie language interpreter. It will need two parameters for the constructor. The first is the command line arguments that you want to pass to the interpreter. The second is the parent class loader to use for loading the resources that the interpreter will need. Here is an example based on the Linux launcher script (but it should work on any OS), where we assume that the Jolie program that we want to run is called main.ol:<br /><br /><br /><pre class="brush: java">String jh = System.getenv( "JOLIE_HOME" );<br />String args[] = "-l ./lib/*:$JOLIE_HOME/lib:$JOLIE_HOME/javaServices/*:$JOLIE_HOME/extensions/* -i $JOLIE_HOME/include main.ol".replaceAll( "\\$JOLIE_HOME", jh ).split( " " );<br />final Interpreter interpreter = new Interpreter( args, this.class.getClassLoader() );<br /></pre><br />Now you just need to use the run method of the interpreter object you have just created. Here I do it in a separate thread, as that method will return only when the Jolie program terminates. This is a toy example so I am disregarding exceptions here, but you should obviously care about them in real-world code:<br /><br /><pre class="brush: java">Thread t = new Thread( () -&gt; {<br />    try { interpreter.run(); }<br />    catch( Exception e ) { /* Handle e.. */ }<br />} );<br />t.setContextClassLoader( interpreter.getClassLoader() );<br />t.start();<br /></pre><br />If you need to stop the interpreter manually, you can use the exit method it comes with. It takes a hard timeout if you need one. Enjoy your Jolie interpreter inside of Java!
