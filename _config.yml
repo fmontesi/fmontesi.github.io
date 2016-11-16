@@ -4,7 +4,7 @@ email: famontesi@gmail.com
 #
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://fmontesi.github.io" # the base hostname & protocol for your site
-twitter_username: fmontesi
+twitter_username: famontesi
 github_username:  fmontesi
 
 # Build settings
