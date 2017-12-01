@@ -45,3 +45,6 @@ main
 ```
 
 Just save this as a file, say `search.ol`, and then you can use it to fetch some results. For example, try `jolie search.ol DuckDuckGo` or `jolie search.ol "Jolie Programming Language"`.
+
+A note about the rules from DuckDuckGo at the time of this writing.
+If you use this in some project, remember to update the `t` parameter in the alias of operation `search` from `jolie_example` to something that describes your own project.
