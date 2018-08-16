@@ -28,7 +28,11 @@ $content-width:    800px;
 $on-palm:          600px;
 $on-laptop:        800px;
 
-
+pre > code {
+	-moz-tab-size: 2;
+	-o-tab-size: 2;
+	tab-size: 2;
+}
 
 // Use media queries like this:
 // @include media-query($on-palm) {
