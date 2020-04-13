@@ -10,30 +10,30 @@ tags:
 Do you need to send events to Google Analytics from your Jolie service?
 Here is a self-explanatory snippet.
 
-<pre>
-<code class="language-jolie">interface GoogleAnalyticsIface {
+```jolie
+interface GoogleAnalyticsIface {
 RequestResponse: collect
 }
 
 outputPort GoogleAnalytics {
-Location: "socket://www.google-analytics.com:80/"
-Protocol: http { .format = "x-www-form-urlencoded" }
-Interfaces: GoogleAnalyticsIface
+location: "socket://www.google-analytics.com:80/"
+protocol: http { format = "x-www-form-urlencoded" }
+interfaces: GoogleAnalyticsIface
 }
 
 main
 {
 	collect@GoogleAnalytics( {
-    .v = 1,
-    .tid = "UA-XXXXXXXX-Y", // put your own tracking id here
-    .cid = 555,
-    .t = "event",
-    .ec = "Publications",
-    .ea = "Download",
-    .el = "mypaper.pdf"
+		v = 1,
+		tid = "UA-XXXXXXXX-Y", // put your own tracking id here
+		cid = 555,
+		t = "event",
+		ec = "Publications",
+		ea = "Download",
+		el = "mypaper.pdf"
   } )()
 }
-</code></pre>
+```
 
 To know what the fields mean, have a look at the official documentation from Google: [https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters).
 
