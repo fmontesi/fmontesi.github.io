@@ -9,3 +9,5 @@ github_username:  fmontesi
 
 # Build settings
 markdown: kramdown
+
+theme: jekyll-theme-hacker
