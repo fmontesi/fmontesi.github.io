@@ -16,7 +16,7 @@ tags:
 	- [APIs](#apis)
 	- [Services](#services)
 	- [Access points](#access-points)
-	- [Behaviour (or Business Logic)](#behaviour-or-business-logic)
+	- [Behaviour (or business logic)](#behaviour-or-business-logic)
 	- [Taking stock](#taking-stock)
 	- [Reflections on the principles](#reflections-on-the-principles)
 		- [Principle 1: formal APIs](#principle-1-formal-apis)
@@ -96,7 +96,7 @@ An API should specify, at the very least:
 APIs are essential to service programming, since they allow us to check whether a service offers what we need while at the same time abstracting from how the service is concretely implemented.
 This brings us to our first principle.
 
-**Principle 1: formal APIs.** Service APIs should be define in a formal language, which is ideally technology-agnostic, unambiguous, machine readable, and based on well-known abstractions when possible.
+**Principle 1: formal APIs.** Service APIs should be defined in a formal language, which is ideally technology agnostic, unambiguous, machine readable, and based on well-known abstractions.
 
 Say that our `Greeter` service should receive client requests containing a name (the name of the person that we should greet), and send back a response that contains a greeting.
 We can define these data types as the following _record types_.
@@ -114,11 +114,11 @@ RequestResponse: greet( GreetingRequest )( Greeting )
 Above, `RequestResponse` means that operation `greet` receives a request and always sends back a response to clients. (Jolie also offers `OneWay` as an alternative, meaning that the client does not need to wait for a response.)
 We then define that `greet` expects requests of type `GreetingRequest` and sends back responses of type `Greeting`.
 
-Observe that what we have written so far is technology-agnostic, in the sense that our data types correspond to types that would make sense in most technologies. This principle is somewhat present also in the interface languages of [protocol buffers](https://developers.google.com/protocol-buffers) and [OpenAPI](https://swagger.io/specification/). Some frameworks that used the [Web Services Description Language](https://en.wikipedia.org/wiki/Web_Services_Description_Language) supported binding XML data structures to other formats in HTTP messages.
+Observe that what we have written so far is technology-agnostic, in the sense that our data types correspond to types that would make sense in most technologies. This principle is somewhat present also in the interface languages of [protocol buffers](https://developers.google.com/protocol-buffers) and [OpenAPI](https://swagger.io/specification/). Some frameworks that used the [Web Service Description Language](https://en.wikipedia.org/wiki/Web_Services_Description_Language) supported binding XML data structures to other formats in HTTP messages.
 
-Another important aspect when designing an API language with integration in mind is _structural typing_. If you are not familiar with structural typing, don't worry: we're going to see what this means [later on](#structural-typing). In a nutshell, this means that if a client and a service have defined their data types using different names or other details that do not matter when it comes to how data can be accessed, then these types should be deemed compatible.
+Another important aspect when designing an API language with integration in mind is _structural typing_. If you are not familiar with structural typing, don't worry: we're going to revisit the concept [later on](#structural-typing). In a nutshell, this means that if a client and a service have defined their data types using different names or other details that do not matter when it comes to how data can be accessed, then these types should be deemed compatible.
 
-**Principle 2: structural typing.** API languages should support integration by adopting structural typing.
+**Principle 2: structural typing.** API languages should support structural typing.
 
 ## Services
 
@@ -171,7 +171,7 @@ We introduce a principle for access points as well, which we are going to reflec
 
 **Principle 4: decoupling of access points from business logic.** The definition of access points should be separate from the implementation of the business logic of the service.
 
-## Behaviour (or Business Logic)
+## Behaviour (or business logic)
 
 Now that we have defined an access point for our service, we have to code the behaviour that implements the business logic for the API that we are exposing.
 
@@ -224,7 +224,7 @@ Observe that our business logic implementation does not mention that `request` o
 
 ## Taking stock
 
-Let's take stock and have a look at the complete program that we got so far. We are then going to reflect on a few important aspects of the way we have programmed it with.
+Let's take stock and have a look at the complete program that we got so far. We are then going to reflect on a few important aspects of how we have programmed it.
 
 ```jolie
 // Data types
@@ -278,7 +278,7 @@ These advantages are relevant for integrating services with other components and
 
 Differently from many other languages, Jolie adopts a _structural_ view on types: to determine whether two types are equivalent, Jolie looks at their definitions. This means that even if two services use two different names for the type of some data but the type structures are equivalent, then Jolie can tell that everything is OK.
 
-Suppose, for example, that we defined a data type `Team` as follows.
+Consider, for example, the following data type `Team`.
 ```jolie
 type Team {
 	name:string
@@ -302,9 +302,9 @@ Jolie has adopted structural typing since 2008. More recently, Ballerina [uses s
 
 Principle 3 aids the programmer in having code that corresponds closely to the intended model (a service, in this case), which makes us more effective.
 
-Making it very easy to write many services can aid with technical debt and distribution. Say that we wanted to change `Greeter` to authenticate clients and get profile information, by using a separate component called `UserProfiles` (responsible for managing user profiles):
+Making it very easy to write many services can aid in dealing with technical debt and distribution. Say that we wanted to change `Greeter` to authenticate clients and get profile information, by using a separate component called `UserProfiles` (responsible for managing user profiles):
 - In a language that is not service-oriented, we might be tempted to define that component as something that is not a service, which would then become an integral part of `Greeter` that is very hard to detach in the future. This technical debt could bite us in the future if we ever wanted to scale up and make `UserProfiles` a service that can be run independently.
-- Differently, in a service-oriented language, we would be guided (Jolie would actually *force* us) to make `UserProfiles` immediately a service. Initially, we might decide to run `Greeter` and `UserProfiles` in the same machine, or even in the same process. But the principle leaves us free to distribute these services in the future, or even to make these services automatically redeployable (as in serverless). For this to work, it is important that:
+- Differently, in a service-oriented language, we would be guided (Jolie would actually force us) to make `UserProfiles` immediately a service. Initially, we might decide to run `Greeter` and `UserProfiles` in the same machine, or even in the same process. But the principle leaves us free to distribute these services in the future, or even to make these services automatically redeployable (as in serverless). For this to work, it is important that:
   * The language discourages knowing whether another service is running in the same execution environment (e.g., a process in the operating system) or not.
   * The language makes communications between services running in the same execution environment efficient.
 
@@ -315,7 +315,7 @@ We are going to give a concrete example of this at the end of the next section, 
 
 Principles 4 and 5 are in synergy, so we discuss them together.
 
-These principles help with getting code that can be reused with different data formats. For example, say that we wanted to send greetings encoded in XML instead of JSON. We just need to change the input port of `Greeter` to use `xml`, without the need for updating the implementation.
+These principles help with getting code that can be reused with different data formats. For example, say that we wanted to send greetings encoded in XML instead of JSON. We just need to change the input port of `Greeter` to use `xml` as format, without the need for updating the implementation.
 
 ```jolie
 service Greeter {
@@ -448,5 +448,5 @@ Not only do they bring advantages in isolation, but they also present significan
 
 Some languages support a few of these principles natively, to make sure that developers can follow them effectively. [Jolie](https://jolie-lang.org) supports all the principles that we discussed. [WS-BPEL](https://en.wikipedia.org/wiki/Business_Process_Execution_Language) supports principles 1, 4, and partially 3 (only one service per program). [Ballerina](https://ballerina.io) supports principles 2, 3, and partially 4 (references to external services are defined within the implementation of the business logic).
 
-The list of principles that we have discussed is certainly not complete. There are other principles that, for example, have to do with deployment, observability, and reconfiguration. There are also features that become possible thanks to the principles that we have described, which we have not talked about here. For instance, Jolie exploits the combination of principles 1, 2, 4 and 5 to offer native primitives for _architectural programming_, which cover cases such as [API gateway and circuit breaker](http://arxiv.org/abs/1609.05830).
+The list of principles that we have discussed is certainly not complete. There are other principles that, for example, have to do with deployment, observability, and reconfiguration. There are also features that become possible thanks to the principles that we have described, which we have not talked about here. For instance, Jolie exploits the combination of principles 1, 2, 4 and 5 to offer native primitives for _architectural programming_, which cover cases such as API Gateway and Circuit Breaker (a discussion can be read in [this paper](http://arxiv.org/abs/1609.05830)).
 These could be topics for future write-ups.
