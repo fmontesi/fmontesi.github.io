@@ -8,7 +8,7 @@ tags:
 - tutorial
 ---
 
-![A greeter service]({{ site.url }}/assets/service-oriented/header.png)
+![A greeter service]({{ site.url }}/assets/service-oriented/header.jpg)
 
 **TL;DR.** Some principles are emerging for what one might call service-oriented programming languages. The principles are general, so they can help when thinking about code even when operating outside of these languages. A little demo of the code shown in this article can be seen in [this video](https://youtu.be/NMCd89HgJSc).
 
